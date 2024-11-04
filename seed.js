@@ -7,19 +7,19 @@ const Movies = require('./model/movies.js');
 async function connectWithRetry() {
     while (true) {
         try {
-            await mongoose.connect(uri); // 移除 useNewUrlParser 和 useUnifiedTopology
+            await mongoose.connect(uri); 
             console.log("Successfully connected to MongoDB!");
-            break; // 连接成功，退出循环
+            break; // Connection successfuly
         } catch (error) {
             console.error("MongoDB connection unsuccessful, retrying after 5 seconds...");
-            await new Promise(resolve => setTimeout(resolve, 5000)); // 等待 5 秒再重试
+            await new Promise(resolve => setTimeout(resolve, 5000)); 
         }
     }
 }
 
 async function seedDatabase() {
     try {
-        await connectWithRetry(); // 使用重试机制连接 MongoDB
+        await connectWithRetry(); // use retry to connect MongoDB
 
         await Movies.deleteMany({});
         console.log("Old data is cleared!");
