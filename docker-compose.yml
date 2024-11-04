@@ -1,5 +1,7 @@
 networks:
-  my-network:
+  express-network:
+  mongodb-network:   
+  redis-network:
 
 services:
 
@@ -13,7 +15,8 @@ services:
         REDIS_URI: redis://redis:6379
         ENABLE_WRITING_HANDLERS: 'false'
       networks:
-        - my-network
+        - mongodb-network
+        - redis-network
       depends_on:
         - mongodb
         - redis
@@ -28,7 +31,8 @@ services:
       ports:
         - '27017:27017'
       networks:
-        - my-network
+        - mongodb-network
+        - express-network
       volumes:
         - ./data:/data/db 
 
@@ -39,7 +43,7 @@ services:
     ports:
     - '6379:6379'
     networks:
-      - my-network
+      - redis-network
 
   mongo-express:
     container_name: express
@@ -52,6 +56,6 @@ services:
       ME_CONFIG_MONGODB_ADMINPASSWORD: secret
       ME_CONFIG_MONGODB_SERVER: mongodb
     networks:
-      - my-network
+      - express-network
     depends_on:
       - mongodb
