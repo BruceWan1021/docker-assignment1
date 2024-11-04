@@ -67,7 +67,7 @@
       build:
         context: .
         dockerfile: Dockerfile-seeder
-      restart: always
+      restart: 'no'
       depends_on:
         - mongodb
       environment:
