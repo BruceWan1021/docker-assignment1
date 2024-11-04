@@ -1,12 +1,22 @@
 networks:
-  my-network:  
+  my-network:
+
 services:
 
   api:
-    image: doconnor/movies-api:1.0
-    container_name: movies-api
-    ports:
-      - '9000:9000'
+      image: doconnor/movies-api:1.0
+      container_name: movies-api
+      ports:
+        - '9000:9000'
+      environment:
+        MONGODB_URI: mongodb://admin:secret@mongodb:27017
+        REDIS_URI: redis://redis:6379
+        ENABLE_WRITING_HANDLERS: 'false'
+      networks:
+        - my-network
+      depends_on:
+        - mongodb
+        - redis
 
   mongodb:
       container_name: mongodb
