@@ -39,7 +39,7 @@ services:
     ports:
     - '6379:6379'
     networks:
-      - redis-network
+      - my-network
 
   mongo-express:
     container_name: express
@@ -52,6 +52,6 @@ services:
       ME_CONFIG_MONGODB_ADMINPASSWORD: secret
       ME_CONFIG_MONGODB_SERVER: mongodb
     networks:
-      - express-network
+      - my-network
     depends_on:
       - mongodb
