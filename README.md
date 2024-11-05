@@ -10,12 +10,37 @@ This repository contains the containerization of the mukti-container application
 
 ### Database Seeding.
 
-To realize database seeding, I use seed.js to Automatically deploy database following the Dockerfile-seeder which will copy the file needed to a virtual space to excute.  To make the data in database readable, I set the model. I use mongoose to deploy data into MongoDB.
-The script is only excuted when the application is launched in development period.
+To implement database seeding, I created a seed.js script and configured Dockerfile-seeder to automate the process. This setup copies the necessary files into the virtual space within the container, where the script runs automatically to deploy data to the database. Using Mongoose, I structured the data models and seeded them into MongoDB. Importantly, this script only executes when the application is launched in the development environment to avoid unnecessary data seeding in production.
 
 ### M.ulti-Stack.
 
-Building development and production stack options by separating Docker Compose files
+The project supports both development and production stacks by separating Docker Compose files:
 
-Development stack: This stack includes all the services with configuration which is convenient for debugging, and automatic seeding database during development period.
-Production stack: This stack doesn't include mongo-express and seeder services. In this stack, it will not excute unnecessary services to improve the production environemnt stablility. 
+Development Stack: This configuration includes all services, enabling convenient debugging and automatic database seeding for the development period.
+Production Stack: The production configuration excludes mongo-express and seeder services. This setup omits unnecessary services to ensure optimal stability and efficiency in the production environment.
+
+###Running the Project
+
+####Prerequisites
+Docker and Docker Compose installed on your machine.
+
+####Development Environment
+Clone the repository to your local machine:
+
+#####Prerequisites
+Docker and Docker Compose installed on your machine.
+Node.js
+
+To install Mongoose, you can run: npm install mongoose
+
+#####Development Environment
+
+Run the following command to start the development stack, which includes all services and automatically seeds the database:
+docker-compose up
+
+Access the application through the port Mongo Express at http://localhost:8081.
+
+#####Production Environment
+To run the application in a production environment without seeding the database and unnecessary services, use the following command:
+docker-compose -f docker-compose.yml -f docker-compose.prod.yml up
+Verify that the application is running by checking the logs.

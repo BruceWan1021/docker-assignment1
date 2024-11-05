@@ -19,7 +19,6 @@ services:
     build:
       context: .
       dockerfile: Dockerfile-seeder
-    restart: always
     depends_on:
       - mongodb
     environment:
